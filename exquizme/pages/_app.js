@@ -1,5 +1,8 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import Head from 'next/head'
+
 import db from '../db.json'
+
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -31,6 +34,10 @@ const theme = db.theme
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Head >
+          {/* Tags de de head aqui */}
+          <title>Quiz - teste seus conhecimentos em league of legends</title>
+        </Head>  
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Component {...pageProps} />

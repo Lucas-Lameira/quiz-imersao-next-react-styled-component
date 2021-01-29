@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import React, {useState} from 'react'
+import {useRouter} from 'next/router'
+
 import db from '../db.json'
 import Widget from '../src/components/Widget/index'
 import Footer from '../src/components/Footer'
@@ -18,24 +21,47 @@ export const QuizContainer = styled.div`
   }
 `;
 
-
 export default function Home() {
+  const router = useRouter();
+  let [name, setName] = useState('')
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    router.push(`/quiz?name=${name}`)
+  }
+
+  function handleChangeInput(e) {
+    console.log(e.target.value)
+    setName(e.target.value)
+  }
+
   return (    
-      <QuizBackground backgroundImage={db.bg}>    
-        <QuizContainer>
-          <Widget>
-            <Widget.Header >
-              <h1>My page</h1>
-            </Widget.Header>
-            <Widget.Content>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, pariatur dolores corporis necessitatibus placeat eius neque assumenda ut, enim cumque aliquid iste a iure. Eveniet corrupti ratione voluptates modi quas.</p>
+    <QuizBackground backgroundImage={db.bg}>          
+      <QuizContainer>      
+        <QuizLogo/>
 
-            </Widget.Content>
-          </Widget>
+        <Widget>          
+          <Widget.Header >
+            <h1>My page</h1>
+          </Widget.Header>
 
-          <Footer />
-        </QuizContainer>
-        <GitHunCorner projectUrl="https://github.com/Lucas-Lameira/quiz-imersao-next-react-styled-component"/>
-      </QuizBackground>    
+          <Widget.Content>
+            <form onSubmit={handleSubmit}>
+              <input 
+                type="text" 
+                placeholder="Digite seu nome para jogar XD"
+                onChange={handleChangeInput}
+                />
+              <button type="submit">
+                Jogar
+              </button>
+            </form>
+          </Widget.Content>
+        </Widget>
+        
+        <Footer />
+      </QuizContainer>
+      <GitHunCorner projectUrl="https://github.com/Lucas-Lameira/quiz-imersao-next-react-styled-component"/>
+    </QuizBackground>    
   )
 }
