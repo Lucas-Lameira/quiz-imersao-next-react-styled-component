@@ -1,16 +1,19 @@
-import styled from 'styled-components'
-import React, {useState} from 'react'
-import {useRouter} from 'next/router'
+import styled from 'styled-components';
+import React, {useState} from 'react';
+import {useRouter} from 'next/router';
+import Head from 'next/head'
 
 import db from '../db.json'
-import Widget from '../src/components/Widget/index'
-import Footer from '../src/components/Footer'
-import GitHunCorner from '../src/components/GitHubCorner'
-import QuizBackground from '../src/components/QuizBackground'
-import QuizLogo from '../src/components/QuizLogo'
+import Widget from '../src/components/Widget/index';
+import Footer from '../src/components/Footer';
+import GitHunCorner from '../src/components/GitHubCorner';
+import QuizBackground from '../src/components/QuizBackground';
+import QuizLogo from '../src/components/QuizLogo';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button'
+//import QuizContainer from '../src/components/QuizContainer'
 
-
-export const QuizContainer = styled.div`
+const QuizContainer = styled.div`
   width: 100%;
   max-width: 350px;
   padding-top: 45px;
@@ -36,26 +39,40 @@ export default function Home() {
   }
 
   return (    
-    <QuizBackground backgroundImage={db.bg}>          
+    <QuizBackground backgroundImage={db.bg}>    
+     <Head>
+        <title>{db.title}</title>
+      </Head>      
       <QuizContainer>      
         <QuizLogo/>
 
         <Widget>          
           <Widget.Header >
-            <h1>My page</h1>
+            <h1>{db.title}</h1>
           </Widget.Header>
 
           <Widget.Content>
+            <p>{db.description}</p>
             <form onSubmit={handleSubmit}>
-              <input 
+              <Input 
                 type="text" 
                 placeholder="Digite seu nome para jogar XD"
                 onChange={handleChangeInput}
+                name="Nome do usuario "
+                value={name}
                 />
-              <button type="submit">
+              <Button type="submit" disabled={!name}>
                 Jogar
-              </button>
+              </Button>
             </form>
+          </Widget.Content>
+        </Widget>
+
+        <Widget>
+          <Widget.Content>
+            <h1>Quizes da Galera</h1>
+
+            <p>lorem ipsum dolor sit amet...</p>
           </Widget.Content>
         </Widget>
         
